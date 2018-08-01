@@ -12,6 +12,7 @@
 		19985AB721119B21000DF69B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19985AB521119B21000DF69B /* Main.storyboard */; };
 		19985AB921119B23000DF69B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19985AB821119B23000DF69B /* Assets.xcassets */; };
 		19985ABC21119B23000DF69B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19985ABA21119B23000DF69B /* LaunchScreen.storyboard */; };
+		19985AC521119B3A000DF69B /* JXBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19985AC421119B3A000DF69B /* JXBottomSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		19985AB821119B23000DF69B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19985ABB21119B23000DF69B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19985ABD21119B23000DF69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19985AC421119B3A000DF69B /* JXBottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JXBottomSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		19985AB021119B20000DF69B /* JXBottomSheetView */ = {
 			isa = PBXGroup;
 			children = (
+				19985AC321119B28000DF69B /* Classes */,
 				19985AB121119B20000DF69B /* AppDelegate.swift */,
 				19985AB321119B21000DF69B /* ViewController.swift */,
 				19985AB521119B21000DF69B /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				19985ABD21119B23000DF69B /* Info.plist */,
 			);
 			path = JXBottomSheetView;
+			sourceTree = "<group>";
+		};
+		19985AC321119B28000DF69B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				19985AC421119B3A000DF69B /* JXBottomSheetView.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19985AB421119B21000DF69B /* ViewController.swift in Sources */,
+				19985AC521119B3A000DF69B /* JXBottomSheetView.swift in Sources */,
 				19985AB221119B20000DF69B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,16 +292,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CUHY5967Q2;
 				INFOPLIST_FILE = JXBottomSheetView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = jiaxin.JXBottomSheetView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -297,16 +313,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = CUHY5967Q2;
 				INFOPLIST_FILE = JXBottomSheetView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = jiaxin.JXBottomSheetView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
