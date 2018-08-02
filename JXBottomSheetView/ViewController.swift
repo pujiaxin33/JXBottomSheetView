@@ -35,10 +35,15 @@ class ViewController: UIViewController {
         let bottomSheet = JXBottomSheetView(contentView: tableView)
         bottomSheet.defaultMininumDisplayHeight = 100
         bottomSheet.defaultMaxinumDisplayHeight = 300
-        bottomSheet.displayState = .maxDisplay
-        bottomSheet.isTriggerImmediately = true
+        bottomSheet.displayState = .minDisplay
         bottomSheet.frame = self.view.bounds
         view.addSubview(bottomSheet)
+
+        if #available(iOS 11, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

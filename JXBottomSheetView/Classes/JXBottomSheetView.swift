@@ -8,12 +8,19 @@
 
 import UIKit
 
-public enum JXBottomSheetState {
+@objc public enum JXBottomSheetState: Int {
     case maxDisplay
     case minDisplay
 }
 
+@objc
+protocol JXBottomSheetViewDelegate: NSObjectProtocol {
+    @objc optional func bottomSheet(bottomSheet: JXBottomSheetView, willDisplay state: JXBottomSheetState)
+    @objc optional func bottomSheet(bottomSheet: JXBottomSheetView, didDisplayed state: JXBottomSheetState)
+}
+
 public class JXBottomSheetView: UIView {
+    weak var delegate: JXBottomSheetViewDelegate?
     //默认最小内容高度，当contentSize.height更小时，会更新mininumDisplayHeight值
     public var defaultMininumDisplayHeight: CGFloat = 100 {
         didSet {
@@ -27,9 +34,12 @@ public class JXBottomSheetView: UIView {
         }
     }
     public var displayState: JXBottomSheetState = .minDisplay
+    //1、判断triggerVelocity，大于当前切换方向，直接切换；
+    //2、判断triggerDistance：
+    //2.1、当超过triggerDistance时，根据结束手势时手指的方向切换状态；
+    //2.2、未超过triggerDistance时，恢复状态；
+    public var triggerVelocity: CGFloat = 1000  //触发状态切换的滚动速度，points/second
     public var triggerDistance: CGFloat = 10    //滚动多少距离，可以触发展开和收缩状态切换
-    public var isTriggerImmediately = false    //当达到触发距离时，是否立即触发。否则就等到用户结束拖拽时触发。
-    fileprivate var panGesture: UIPanGestureRecognizer!
     fileprivate var mininumDisplayHeight: CGFloat = 100
     fileprivate var maxinumDisplayHeight: CGFloat = 300
     fileprivate var minFrame: CGRect {
@@ -53,16 +63,29 @@ public class JXBottomSheetView: UIView {
         }
     }
 
+    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return self.convert(point, to: contentView).y >= 0
+    }
+
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if self.convert(point, to: contentView).y >= 0 {
+            return super.hitTest(point, with: event)
+        }
+        return nil
+    }
+
     public init(contentView: UIScrollView) {
         self.contentView = contentView
         super.init(frame: CGRect.zero)
 
         clipsToBounds = true
         backgroundColor = .clear
+
+        contentView.bounces = false
         addSubview(contentView)
         contentView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
 
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(processPan(gesture:)))
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(processPan(gesture:)))
         panGesture.delegate = self
         contentView.addGestureRecognizer(panGesture)
     }
@@ -83,8 +106,6 @@ public class JXBottomSheetView: UIView {
 
     @objc fileprivate func processPan(gesture: UIPanGestureRecognizer) {
         switch gesture.state {
-        case .began:
-            print("began")
         case .changed:
             var canMoveFrame = false
             if displayState == .minDisplay {
@@ -118,31 +139,40 @@ public class JXBottomSheetView: UIView {
                 //当contentView本身还未滚动到最大显示值时，内部的内容不允许滚动。mininumDisplayHeight = maxinumDisplayHeight时也不允许内部内容滚动。
                 contentView.setContentOffset(CGPoint.zero, animated: false)
             }
-
-            if isTriggerImmediately {
-                if displayState == .minDisplay {
-                    if minFrame.origin.y - contentView.frame.origin.y > triggerDistance {
-                        displayMax()
-                        contentView.setContentOffset(CGPoint.zero, animated: false)
-                    }
-                }else {
-                    if contentView.frame.origin.y - maxFrame.origin.y > triggerDistance {
-                        displayMin()
-                    }
-                }
-            }
         case .cancelled, .ended, .failed:
-            print("end")
+            let velocity = gesture.velocity(in: gesture.view)
             if displayState == .minDisplay {
-                if minFrame.origin.y - contentView.frame.origin.y > triggerDistance {
+                if velocity.y < -triggerVelocity {
                     displayMax()
                     contentView.setContentOffset(CGPoint.zero, animated: false)
+                    return
+                }
+                if minFrame.origin.y - contentView.frame.origin.y > triggerDistance {
+                    if velocity.y < 0 {
+                        //往上滚
+                        displayMax()
+                        contentView.setContentOffset(CGPoint.zero, animated: false)
+                    }else {
+                        //往下滚
+                        displayMin()
+                    }
                 }else {
                     displayMin()
                 }
             }else {
-                if contentView.frame.origin.y - maxFrame.origin.y > triggerDistance {
+                if velocity.y > triggerVelocity {
                     displayMin()
+                    contentView.setContentOffset(CGPoint.zero, animated: false)
+                    return
+                }
+                if contentView.frame.origin.y - maxFrame.origin.y > triggerDistance {
+                    if velocity.y < 0 {
+                        //往上滚
+                        displayMax()
+                    }else {
+                        //往下滚
+                        displayMin()
+                    }
                 }else {
                     displayMax()
                 }
@@ -156,14 +186,12 @@ public class JXBottomSheetView: UIView {
         if contentView.frame == maxFrame {
             return
         }
-        contentView.isUserInteractionEnabled = false
-        panGesture.isEnabled = false
+        delegate?.bottomSheet?(bottomSheet: self, willDisplay: JXBottomSheetState.maxDisplay)
         UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.contentView.frame = self.maxFrame
         }) { (finished) in
-            self.contentView.isUserInteractionEnabled = true
-            self.panGesture.isEnabled = true
             self.displayState = .maxDisplay
+            self.delegate?.bottomSheet?(bottomSheet: self, didDisplayed: JXBottomSheetState.maxDisplay)
         }
     }
 
@@ -171,14 +199,12 @@ public class JXBottomSheetView: UIView {
         if contentView.frame == minFrame {
             return
         }
-        contentView.isUserInteractionEnabled = false
-        panGesture.isEnabled = false
+        delegate?.bottomSheet?(bottomSheet: self, willDisplay: JXBottomSheetState.minDisplay)
         UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.contentView.frame = self.minFrame
         }) { (finished) in
-            self.contentView.isUserInteractionEnabled = true
-            self.panGesture.isEnabled = true
             self.displayState = .minDisplay
+            self.delegate?.bottomSheet?(bottomSheet: self, didDisplayed: JXBottomSheetState.minDisplay)
         }
     }
 
