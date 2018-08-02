@@ -39,7 +39,7 @@ public class JXBottomSheetView: UIView {
     //2.1、当超过triggerDistance时，根据结束手势时手指的方向切换状态；
     //2.2、未超过triggerDistance时，恢复状态；
     public var triggerVelocity: CGFloat = 1000  //触发状态切换的滚动速度，points/second
-    public var triggerDistance: CGFloat = 10    //滚动多少距离，可以触发展开和收缩状态切换
+    public var triggerDistance: CGFloat = 50    //滚动多少距离，可以触发展开和收缩状态切换
     fileprivate var mininumDisplayHeight: CGFloat = 100
     fileprivate var maxinumDisplayHeight: CGFloat = 300
     fileprivate var minFrame: CGRect {
@@ -82,6 +82,9 @@ public class JXBottomSheetView: UIView {
         backgroundColor = .clear
 
         contentView.bounces = false
+        if let tableView = contentView as? UITableView {
+            tableView.estimatedRowHeight = 0
+        }
         addSubview(contentView)
         contentView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
 
@@ -127,10 +130,14 @@ public class JXBottomSheetView: UIView {
             if displayState == .minDisplay {
                 if contentView.frame.origin.y <= maxFrame.origin.y {
                     displayState = .maxDisplay
+                    delegate?.bottomSheet?(bottomSheet: self, willDisplay: .maxDisplay)
+                    delegate?.bottomSheet?(bottomSheet: self, didDisplayed: .maxDisplay)
                 }
             }else  {
                 if contentView.frame.origin.y >= minFrame.origin.y {
                     displayState = .minDisplay
+                    delegate?.bottomSheet?(bottomSheet: self, willDisplay: .minDisplay)
+                    delegate?.bottomSheet?(bottomSheet: self, didDisplayed: .minDisplay)
                 }
             }
 
@@ -144,14 +151,10 @@ public class JXBottomSheetView: UIView {
             if displayState == .minDisplay {
                 if velocity.y < -triggerVelocity {
                     displayMax()
-                    contentView.setContentOffset(CGPoint.zero, animated: false)
-                    return
-                }
-                if minFrame.origin.y - contentView.frame.origin.y > triggerDistance {
+                }else if minFrame.origin.y - contentView.frame.origin.y > triggerDistance {
                     if velocity.y < 0 {
                         //往上滚
                         displayMax()
-                        contentView.setContentOffset(CGPoint.zero, animated: false)
                     }else {
                         //往下滚
                         displayMin()
@@ -159,13 +162,12 @@ public class JXBottomSheetView: UIView {
                 }else {
                     displayMin()
                 }
+                contentView.setContentOffset(CGPoint.zero, animated: false)
             }else {
                 if velocity.y > triggerVelocity {
                     displayMin()
                     contentView.setContentOffset(CGPoint.zero, animated: false)
-                    return
-                }
-                if contentView.frame.origin.y - maxFrame.origin.y > triggerDistance {
+                }else if contentView.frame.origin.y - maxFrame.origin.y > triggerDistance {
                     if velocity.y < 0 {
                         //往上滚
                         displayMax()

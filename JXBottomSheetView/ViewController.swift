@@ -24,7 +24,6 @@ class ViewController: UIViewController {
         dataSource = ["回锅肉", "青椒肉丝", "麻婆豆腐", "火锅", "冷串串", "凉粉", "剁椒鱼头", "酸菜鱼", "锅盔", "天蚕土豆", "春卷"]
 
         tableView = UITableView.init(frame: CGRect.zero, style: .plain)
-        tableView.estimatedRowHeight = 0
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.separatorStyle = .none
