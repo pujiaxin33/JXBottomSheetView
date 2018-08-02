@@ -108,6 +108,9 @@ public class JXBottomSheetView: UIView {
     }
 
     @objc fileprivate func processPan(gesture: UIPanGestureRecognizer) {
+        if mininumDisplayHeight == maxinumDisplayHeight {
+            return
+        }
         switch gesture.state {
         case .changed:
             var canMoveFrame = false
