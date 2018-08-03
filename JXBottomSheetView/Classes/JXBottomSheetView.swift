@@ -152,7 +152,7 @@ public class JXBottomSheetView: UIView {
                 if velocity.y < -triggerVelocity {
                     displayMax()
                 }else if minFrame.origin.y - contentView.frame.origin.y > triggerDistance {
-                    if velocity.y < 0 {
+                    if velocity.y <= 0 {
                         //往上滚
                         displayMax()
                     }else {
@@ -212,29 +212,12 @@ public class JXBottomSheetView: UIView {
 
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "contentSize" {
-            var shouldReload = false
-            if displayState == .minDisplay {
-                if contentView.contentSize.height < mininumDisplayHeight {
-                    shouldReload = true
-                }else if contentView.contentSize.height > mininumDisplayHeight && contentView.contentSize.height <= defaultMininumDisplayHeight {
-                    shouldReload = true
-                }
-            }else {
-                if contentView.contentSize.height < maxinumDisplayHeight {
-                    shouldReload = true
-                }else if contentView.contentSize.height > maxinumDisplayHeight && contentView.contentSize.height <= defaultMaxinumDisplayHeight {
-                    shouldReload = true
-                }
-            }
             mininumDisplayHeight = min(defaultMininumDisplayHeight, contentView.contentSize.height)
             maxinumDisplayHeight = min(defaultMaxinumDisplayHeight, contentView.contentSize.height)
-
-            if shouldReload {
-                if displayState == .maxDisplay {
-                    contentView.frame = maxFrame
-                }else {
-                    contentView.frame = minFrame
-                }
+            if displayState == .maxDisplay {
+                contentView.frame = maxFrame
+            }else {
+                contentView.frame = minFrame
             }
         }
     }

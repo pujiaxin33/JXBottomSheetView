@@ -37,12 +37,6 @@ class ViewController: UIViewController {
         bottomSheet.displayState = .minDisplay
         bottomSheet.frame = self.view.bounds
         view.addSubview(bottomSheet)
-
-        if #available(iOS 11, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        }else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -85,6 +79,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.selectionStyle = .none
         cell.textLabel?.text = dataSource[indexPath.row]
         return cell
     }
