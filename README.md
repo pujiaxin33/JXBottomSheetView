@@ -23,7 +23,7 @@
 
 ![](https://github.com/pujiaxin33/JXBottomSheetView/blob/master/JXBottomSheetView/Gif/Changed.gif)
 
-# 属性
+# 属性/方法
 
 属性/方法 | 描述 |
 ----|------|
