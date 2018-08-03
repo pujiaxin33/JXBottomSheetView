@@ -12,39 +12,30 @@
 # 预览
 
 - 普通短距离滚动
+
 ![](https://github.com/pujiaxin33/JXBottomSheetView/blob/master/JXBottomSheetView/Gif/NormalScroll.gif)
 
 - 长距离滚动，手势没有停掉。滚动到顶部的时候，继续滚动里面的内容
+
 ![](https://github.com/pujiaxin33/JXBottomSheetView/blob/master/JXBottomSheetView/Gif/Scroll.gif)
 
 - 内容自适应，根据`contentView`的`contentSize`自动调整布局
+
 ![](https://github.com/pujiaxin33/JXBottomSheetView/blob/master/JXBottomSheetView/Gif/Changed.gif)
 
 # 属性
 
-**defaultMininumDisplayHeight**
-默认最小内容高度，当contentSize.height更小时，会更新mininumDisplayHeight值。
+属性/方法 | 描述 |
+----|------|
+**defaultMininumDisplayHeight** | 默认最小内容高度，当contentSize.height更小时，会更新mininumDisplayHeight值。  | 
+**defaultMaxinumDisplayHeight** | 默认最大内容高度，当contentSize.height更小时，会更新maxinumDisplayHeight值。  | 
+**displayState** | 当前展示状态，最大或最小  | 
+**triggerDistance** | 滚动多少距离，可以触发展开和收缩状态切换。  | 
+**triggerVelocity** | 触发状态切换的滚动速度，points/second  | 
+**contentView: UIScrollView** | 用于承载内容的视图，UITableView、UICollectionView皆可。  | 
+**displayMax()** | 显示最大内容  | 
+**displayMin()** | 显示最小内容  | 
 
-**defaultMaxinumDisplayHeight**
-默认最大内容高度，当contentSize.height更小时，会更新maxinumDisplayHeight值。
-
-**displayState**
-当前展示状态，最大或最小
-
-**triggerDistance**
-滚动多少距离，可以触发展开和收缩状态切换。
-
-**triggerVelocity**
-触发状态切换的滚动速度，points/second
-
-**contentView: UIScrollView**
-用于承载内容的视图，UITableView、UICollectionView皆可。
-
-**displayMax()**
-显示最大内容
-
-**displayMin()**
-显示最小内容
 
 # 使用
 
