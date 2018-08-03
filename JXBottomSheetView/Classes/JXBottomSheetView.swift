@@ -42,6 +42,7 @@ public class JXBottomSheetView: UIView {
     public var triggerDistance: CGFloat = 50    //滚动多少距离，可以触发展开和收缩状态切换
     fileprivate var mininumDisplayHeight: CGFloat = 100
     fileprivate var maxinumDisplayHeight: CGFloat = 300
+    fileprivate var isFirstLayout = true
     fileprivate var minFrame: CGRect {
         get {
             return CGRect(x: 0, y: self.bounds.size.height - mininumDisplayHeight, width: self.bounds.size.width, height: maxinumDisplayHeight)
@@ -65,13 +66,6 @@ public class JXBottomSheetView: UIView {
 
     public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return self.convert(point, to: contentView).y >= 0
-    }
-
-    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        if self.convert(point, to: contentView).y >= 0 {
-            return super.hitTest(point, with: event)
-        }
-        return nil
     }
 
     public init(contentView: UIScrollView) {
@@ -100,10 +94,13 @@ public class JXBottomSheetView: UIView {
     override public func layoutSubviews() {
         super.layoutSubviews()
 
-        if displayState == .minDisplay {
-            contentView.frame = minFrame
-        }else {
-            contentView.frame = maxFrame
+        if isFirstLayout {
+            isFirstLayout = false
+            if displayState == .minDisplay {
+                contentView.frame = minFrame
+            }else {
+                contentView.frame = maxFrame
+            }
         }
     }
 
@@ -132,14 +129,14 @@ public class JXBottomSheetView: UIView {
             gesture.setTranslation(CGPoint.zero, in: contentView)
             if displayState == .minDisplay {
                 if contentView.frame.origin.y <= maxFrame.origin.y {
-                    displayState = .maxDisplay
                     delegate?.bottomSheet?(bottomSheet: self, willDisplay: .maxDisplay)
+                    displayState = .maxDisplay
                     delegate?.bottomSheet?(bottomSheet: self, didDisplayed: .maxDisplay)
                 }
             }else  {
                 if contentView.frame.origin.y >= minFrame.origin.y {
-                    displayState = .minDisplay
                     delegate?.bottomSheet?(bottomSheet: self, willDisplay: .minDisplay)
+                    displayState = .minDisplay
                     delegate?.bottomSheet?(bottomSheet: self, didDisplayed: .minDisplay)
                 }
             }
@@ -167,7 +164,7 @@ public class JXBottomSheetView: UIView {
                 }
                 contentView.setContentOffset(CGPoint.zero, animated: false)
             }else {
-                if velocity.y > triggerVelocity {
+                if velocity.y > triggerVelocity && contentView.contentOffset.y <= 0 {
                     displayMin()
                     contentView.setContentOffset(CGPoint.zero, animated: false)
                 }else if contentView.frame.origin.y - maxFrame.origin.y > triggerDistance {
@@ -234,9 +231,9 @@ public class JXBottomSheetView: UIView {
 
             if shouldReload {
                 if displayState == .maxDisplay {
-                    displayMax()
+                    contentView.frame = maxFrame
                 }else {
-                    displayMin()
+                    contentView.frame = minFrame
                 }
             }
         }

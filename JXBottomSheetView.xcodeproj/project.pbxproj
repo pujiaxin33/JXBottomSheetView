@@ -12,7 +12,7 @@
 		19985AB721119B21000DF69B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19985AB521119B21000DF69B /* Main.storyboard */; };
 		19985AB921119B23000DF69B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19985AB821119B23000DF69B /* Assets.xcassets */; };
 		19985ABC21119B23000DF69B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19985ABA21119B23000DF69B /* LaunchScreen.storyboard */; };
-		19985AEE21131842000DF69B /* JXBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19985AED21131842000DF69B /* JXBottomSheetView.swift */; };
+		19985AF221142CEA000DF69B /* JXBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19985AF121142CEA000DF69B /* JXBottomSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		19985AB821119B23000DF69B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19985ABB21119B23000DF69B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19985ABD21119B23000DF69B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		19985AED21131842000DF69B /* JXBottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXBottomSheetView.swift; sourceTree = "<group>"; };
+		19985AF121142CEA000DF69B /* JXBottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JXBottomSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +70,7 @@
 		19985AC321119B28000DF69B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				19985AED21131842000DF69B /* JXBottomSheetView.swift */,
+				19985AF121142CEA000DF69B /* JXBottomSheetView.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -147,7 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19985AB421119B21000DF69B /* ViewController.swift in Sources */,
-				19985AEE21131842000DF69B /* JXBottomSheetView.swift in Sources */,
+				19985AF221142CEA000DF69B /* JXBottomSheetView.swift in Sources */,
 				19985AB221119B20000DF69B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
