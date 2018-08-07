@@ -1,6 +1,7 @@
 # JXBottomSheetView
 
 项目中有类似于外卖软件的已点菜品列表，类似于下图：
+
 ![meituan.gif](https://upload-images.jianshu.io/upload_images/1085173-77587ed9d77747a8.gif?imageMogr2/auto-orient/strip)
 
 可以看到列表的显示与隐藏，都只能通过按钮触发。不能通过手势驱动。不能设置最小可显示范围。针对以上问题，就有了这个项目。
