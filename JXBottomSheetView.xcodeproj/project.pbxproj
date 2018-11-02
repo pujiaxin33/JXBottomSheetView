@@ -63,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				19985AF3211453F0000DF69B /* Gif */,
-				19985AC321119B28000DF69B /* Classes */,
+				19985AC321119B28000DF69B /* Sources */,
 				19985AB121119B20000DF69B /* AppDelegate.swift */,
 				19985AB321119B21000DF69B /* ViewController.swift */,
 				19985AB521119B21000DF69B /* Main.storyboard */,
@@ -74,12 +74,12 @@
 			path = JXBottomSheetView;
 			sourceTree = "<group>";
 		};
-		19985AC321119B28000DF69B /* Classes */ = {
+		19985AC321119B28000DF69B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				19985AF121142CEA000DF69B /* JXBottomSheetView.swift */,
 			);
-			path = Classes;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		19985AF3211453F0000DF69B /* Gif */ = {
