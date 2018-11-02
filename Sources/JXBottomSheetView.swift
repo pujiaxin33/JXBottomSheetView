@@ -13,14 +13,13 @@ import UIKit
     case minDisplay
 }
 
-@objc
-protocol JXBottomSheetViewDelegate: NSObjectProtocol {
+@objc public protocol JXBottomSheetViewDelegate: NSObjectProtocol {
     @objc optional func bottomSheet(bottomSheet: JXBottomSheetView, willDisplay state: JXBottomSheetState)
     @objc optional func bottomSheet(bottomSheet: JXBottomSheetView, didDisplayed state: JXBottomSheetState)
 }
 
 public class JXBottomSheetView: UIView {
-    weak var delegate: JXBottomSheetViewDelegate?
+    weak public var delegate: JXBottomSheetViewDelegate?
     //默认最小内容高度，当contentSize.height更小时，会更新mininumDisplayHeight值
     public var defaultMininumDisplayHeight: CGFloat = 100 {
         didSet {
