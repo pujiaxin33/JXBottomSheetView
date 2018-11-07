@@ -65,6 +65,14 @@
         view.addSubview(bottomSheet)
 ```
 
+# 安装
+```ruby
+use_frameworks!
+target '<Your Target Name>' do
+    pod 'JXBottomSheetView'
+end
+```
+
 # 注意
 
 - 内部会影响到外部的代码
