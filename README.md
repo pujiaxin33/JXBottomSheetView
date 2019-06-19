@@ -66,6 +66,9 @@
 ```
 
 # 安装
+
+swift版本：5.0+
+
 ```ruby
 use_frameworks!
 target '<Your Target Name>' do

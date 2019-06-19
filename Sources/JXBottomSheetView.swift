@@ -188,7 +188,7 @@ public class JXBottomSheetView: UIView {
             return
         }
         delegate?.bottomSheet?(bottomSheet: self, willDisplay: JXBottomSheetState.maxDisplay)
-        UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.contentView.frame = self.maxFrame
         }) { (finished) in
             self.displayState = .maxDisplay
@@ -201,7 +201,7 @@ public class JXBottomSheetView: UIView {
             return
         }
         delegate?.bottomSheet?(bottomSheet: self, willDisplay: JXBottomSheetState.minDisplay)
-        UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.contentView.frame = self.minFrame
         }) { (finished) in
             self.displayState = .minDisplay
