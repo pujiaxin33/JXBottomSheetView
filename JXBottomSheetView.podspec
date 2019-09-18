@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "JXBottomSheetView"
-  s.version = "0.0.4"
+  s.version = "0.0.5"
   s.summary      = "可以手势交互的底部列表视图"
   s.homepage     = "https://github.com/pujiaxin33/JXBottomSheetView"
   s.license      = "MIT"
