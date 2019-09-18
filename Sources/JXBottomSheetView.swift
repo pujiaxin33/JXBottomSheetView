@@ -52,6 +52,7 @@ public class JXBottomSheetView: UIView {
             return CGRect(x: 0, y: self.bounds.size.height - maxinumDisplayHeight, width: self.bounds.size.width, height: maxinumDisplayHeight)
         }
     }
+    fileprivate var lastContentSize: CGSize?
 
     var contentView: UIScrollView
 
@@ -211,6 +212,12 @@ public class JXBottomSheetView: UIView {
 
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "contentSize" {
+            guard let newContentSize = change?[NSKeyValueChangeKey.newKey] as? CGSize else {
+                return
+            }
+            guard newContentSize != lastContentSize else {
+                return
+            }
             mininumDisplayHeight = min(defaultMininumDisplayHeight, contentView.contentSize.height)
             maxinumDisplayHeight = min(defaultMaxinumDisplayHeight, contentView.contentSize.height)
             if displayState == .maxDisplay {
@@ -218,6 +225,7 @@ public class JXBottomSheetView: UIView {
             }else {
                 contentView.frame = minFrame
             }
+            lastContentSize = newContentSize
         }
     }
 
