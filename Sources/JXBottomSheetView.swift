@@ -65,7 +65,7 @@ public class JXBottomSheetView: UIView {
     }
 
     public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        return self.convert(point, to: contentView).y >= 0
+        return contentView.frame.contains(point)
     }
 
     public init(contentView: UIScrollView) {
