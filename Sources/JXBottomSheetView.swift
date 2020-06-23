@@ -13,7 +13,7 @@ import UIKit
     case minDisplay
 }
 
-@objc public protocol JXBottomSheetViewDelegate: NSObjectProtocol {
+@objc public protocol JXBottomSheetViewDelegate {
     @objc optional func bottomSheet(bottomSheet: JXBottomSheetView, willDisplay state: JXBottomSheetState)
     @objc optional func bottomSheet(bottomSheet: JXBottomSheetView, didDisplayed state: JXBottomSheetState)
 }
@@ -53,8 +53,7 @@ public class JXBottomSheetView: UIView {
         }
     }
     fileprivate var lastContentSize: CGSize?
-
-    var contentView: UIScrollView
+    let contentView: UIScrollView
 
     public override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
@@ -74,7 +73,6 @@ public class JXBottomSheetView: UIView {
 
         clipsToBounds = true
         backgroundColor = .clear
-
         contentView.bounces = false
         if let tableView = contentView as? UITableView {
             tableView.estimatedRowHeight = 0
